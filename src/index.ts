@@ -8,6 +8,7 @@ import { consoleText } from './helpers/definitions';
 
 import headerRoutes from './routes/headers';
 import errorRoutes from './routes/error';
+import apiRoutes from './routes/router';
 
 const {
   PORT,
@@ -35,6 +36,7 @@ server.use(
 );
 
 server.use(headerRoutes);
+server.use('/api/stripe', apiRoutes);
 server.use(errorRoutes);
 
 server.listen(SERVER_PORT, () => {
