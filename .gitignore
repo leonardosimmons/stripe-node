@@ -1,0 +1,40 @@
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+/dist
+
+
+# misc
+.DS_Store
+.env
+.env.local
+.env.build
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+# User
+/public/assets
+/src/buffer
+/src/*.txt
+*.png
+*.jpg
+*.JPG
+*.jpeg
+*.svg
+*.mp4
+favicon.ico
+temp.tsx
