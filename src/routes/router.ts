@@ -11,4 +11,5 @@ router.use('/stripe-key', config.getStripeKey);
 
 router.use('/create-payment-intent', payment.createPaymentIntent);
 
+
 export default router;

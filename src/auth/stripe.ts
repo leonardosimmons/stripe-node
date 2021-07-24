@@ -2,10 +2,10 @@
 import Stripe from 'stripe';
 
 const {
-  STRIPE_PUBLISHABLE_KEY
+  STRIPE_SECRET_KEY
 } = process.env;
 
-const stripe = new Stripe(STRIPE_PUBLISHABLE_KEY!, { 
+const stripe = new Stripe(STRIPE_SECRET_KEY!, { 
   apiVersion: '2020-08-27',
   typescript: true
 });
