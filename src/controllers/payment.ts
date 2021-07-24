@@ -5,12 +5,19 @@ import stripe from '../auth/stripe';
 import { randNum } from '../helpers/functions';
 
 
-function calculateOrderAmount(): number {
+interface Order {
+  items: Array<object>;
+};
+
+
+function calculateOrderAmount(items: Order): number {
+  // calculate the total amount here
+  // NOT ON CLIENT
   return randNum(10000, 100000);
 };
 
 
-export async function createPaymentIntent(req: Express.Request, res: Express.Response, next: NextFunction): Promise<void> 
+export async function createPaymentIntent(req: Express.Request, res: Express.Response, next: NextFunction): Promise<any> 
 {
   if (!req.body) {
     res.statusCode = 404;
@@ -18,20 +25,22 @@ export async function createPaymentIntent(req: Express.Request, res: Express.Res
     return;
   }
 
-  const { currency, items, paymentMethod, parent } = req.body;
+  const { currency, items } = req.body;
 
-  console.log(`Curreny: ${currency}\nItems: ${items}\nPayment Method: ${paymentMethod}\n Parent: ${parent}`);
-  
   try {
-    const paymentIntent: Stripe.PaymentIntent = await stripe.paymentIntents.create({
-      amount: calculateOrderAmount(),
-      currency: 'usd'
-    });
-
-    console.log(paymentIntent);
+    if (items) {
+      const paymentIntent: Stripe.PaymentIntent = await stripe.paymentIntents.create({
+        amount: calculateOrderAmount(items),
+        currency
+      });
+  
+      return res.status(200).json({
+        clientSecret: paymentIntent.client_secret
+      });
+    }
 
     res.status(200).json({
-      clientSecret: paymentIntent.client_secret
+      message: 'Stipe intent creation failed'
     });
   }
   catch(err) {
