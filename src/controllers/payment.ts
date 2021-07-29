@@ -12,7 +12,6 @@ interface Order {
 
 function calculateOrderAmount(items: Order): number {
   // calculate the total amount here
-  // NOT ON CLIENT
   return randNum(10000, 100000);
 };
 
@@ -35,6 +34,7 @@ export async function createPaymentIntent(req: Express.Request, res: Express.Res
       });
   
       return res.status(200).json({
+        paymentId: paymentIntent.id,
         clientSecret: paymentIntent.client_secret
       });
     }
